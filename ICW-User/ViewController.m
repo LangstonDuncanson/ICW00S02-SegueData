@@ -7,8 +7,14 @@
 //
 
 #import "ViewController.h"
-
+#import "DisplayViewController.h"
+#import "UserData.h"
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *fNameTxtField;
+@property (weak, nonatomic) IBOutlet UITextField *lNameTxtField;
+@property (weak, nonatomic) IBOutlet UITextField *ftTxtField;
+@property (weak, nonatomic) IBOutlet UITextField *inTxtField;
+
 
 @end
 
@@ -25,5 +31,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    NSNumber*heightInInches = [self convertToInches:_ftTxtField.text andInches:_inTxtField.text];
+    DisplayViewController* destination = [segue destinationViewController];
+    UserData* userInfo = [[UserData alloc] initWithData:_fNameTxtField.text andLast:_lNameTxtField.text andHeight:heightInInches];
+    destination.userData = userInfo;
+}
+-(NSNumber*)convertToInches:(NSString*)feet andInches:(NSString*)inches{
+    return [NSNumber numberWithDouble:((double)([feet doubleValue] * 12)+ [inches doubleValue])];
+}
 
 @end
