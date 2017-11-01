@@ -11,6 +11,8 @@
 @interface DisplayViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *fNameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *lNameLbl;
+@property (weak, nonatomic) IBOutlet UILabel *heightFtInLbl;
+@property (weak, nonatomic) IBOutlet UILabel *heightMetersLbl;
 
 @end
 
@@ -20,6 +22,12 @@
     [super viewDidLoad];
     _fNameLbl.text = _userData.getFName;
     _lNameLbl.text = _userData.getLName;
+    int feet, inches;
+    feet = [_userData.getHeight intValue] / 12;
+    inches = [_userData.getHeight intValue] % 12;
+    _heightFtInLbl.text = [NSString stringWithFormat:@"%d feet and %d inches",feet,inches];
+    _heightMetersLbl.text = [NSString stringWithFormat:@"is %.2f meters",[_userData convertToMeters]];
+    
     // Do any additional setup after loading the view.
 }
 

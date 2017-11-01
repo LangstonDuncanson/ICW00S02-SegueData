@@ -22,6 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [_fNameTxtField setDelegate:self];
+    [_lNameTxtField setDelegate:self];
+    [_inTxtField setDelegate:self];
+    [_ftTxtField setDelegate:self];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -41,4 +45,16 @@
     return [NSNumber numberWithDouble:((double)([feet doubleValue] * 12)+ [inches doubleValue])];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    if(![touch.view isMemberOfClass:[UITextField class]]) {
+        [touch.view endEditing:YES];
+    }
+}
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
+    
+    [textField resignFirstResponder];
+    return YES;
+}
 @end
